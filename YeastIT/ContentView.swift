@@ -73,6 +73,7 @@ struct ContentView: View {
                         print("tapped")
                     }){
                         Text("Ciao")
+                        .bold()
                         
                     }
                     
