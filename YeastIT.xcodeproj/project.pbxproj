@@ -13,6 +13,7 @@
 		1173AC3E24B45A3F0064790F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC3D24B45A3F0064790F /* Assets.xcassets */; };
 		1173AC4124B45A3F0064790F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC4024B45A3F0064790F /* Preview Assets.xcassets */; };
 		1173AC4424B45A3F0064790F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */; };
+		D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9F41624B4BA1000D5D574 /* TimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1173AC4024B45A3F0064790F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1173AC4324B45A3F0064790F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1173AC4524B45A3F0064790F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9C9F41624B4BA1000D5D574 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				1173AC3724B45A3D0064790F /* AppDelegate.swift */,
 				1173AC3924B45A3D0064790F /* SceneDelegate.swift */,
 				1173AC3B24B45A3E0064790F /* ContentView.swift */,
+				D9C9F41624B4BA1000D5D574 /* TimerView.swift */,
 				1173AC3D24B45A3F0064790F /* Assets.xcassets */,
 				1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */,
 				1173AC4524B45A3F0064790F /* Info.plist */,
@@ -148,6 +151,7 @@
 			files = (
 				1173AC3824B45A3D0064790F /* AppDelegate.swift in Sources */,
 				1173AC3A24B45A3D0064790F /* SceneDelegate.swift in Sources */,
+				D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */,
 				1173AC3C24B45A3E0064790F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
