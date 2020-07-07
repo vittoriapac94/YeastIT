@@ -43,6 +43,7 @@ struct ContentView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: imageDimension * 1.2 , height: imageDimension * 1.2 )
+                            
                         
                         
                         Image("img_avatar")
@@ -97,8 +98,11 @@ struct ContentView: View {
                                     .frame(width: 299, height: 60, alignment: .center)
                                     .foregroundColor(Color.white)
                                     .cornerRadius(25)
-                                Text("Inizia a lievitare")
+                                   
+                                Text("INIZIA A LIEVITARE")
                                     .foregroundColor(Color.orange)
+                                .bold()
+                                    
                             }
                         }
                     }
