@@ -55,7 +55,7 @@ struct TimerView: View {
                                 self.min = self.hoursD - Double(self.hoursI)
                                 
                                 self.minI = Int(self.min * 60)
-                            
+                                
                                 
                             }else{
                                 
@@ -116,7 +116,7 @@ struct TimerView: View {
                                 Spacer()
                                     .frame(width: 80.0)
                                 
-                                ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI)
+                                ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI, seconds: self.$timeRemaining)
                                     .frame(width: 150.0, height: 150.0)
                                     
                                     .onReceive(timerCL){ _ in
@@ -202,6 +202,7 @@ struct ProgressBar: View {
     @Binding var progress: Double
     @Binding var hours : Int
     @Binding var minutes : Int
+    @Binding var seconds : Double
     
     var body: some View {
         
@@ -220,13 +221,16 @@ struct ProgressBar: View {
             
             VStack{
                 Text("Mancano")
-                     .font(.system(size: 18, weight: .bold))
+                    .font(.system(size: 18, weight: .bold))
                 HStack{
                     Text("\(hours) h")
-                         .font(.system(size: 18, weight: .light))
+                        .font(.system(size: 14, weight: .light))
                     Text(":")
                     Text("\(minutes) m")
-                     .font(.system(size: 18, weight: .light))
+                        .font(.system(size: 14, weight: .light))
+                    Text(":")
+                    Text("\(Int(seconds) % 60) s")
+                        .font(.system(size: 14, weight: .light))
                 }
                 
                 
