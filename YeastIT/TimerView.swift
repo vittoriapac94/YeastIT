@@ -220,11 +220,13 @@ struct ProgressBar: View {
             
             VStack{
                 Text("Mancano")
-                    .bold()
+                     .font(.system(size: 18, weight: .bold))
                 HStack{
                     Text("\(hours) h")
+                         .font(.system(size: 18, weight: .light))
                     Text(":")
                     Text("\(minutes) m")
+                     .font(.system(size: 18, weight: .light))
                 }
                 
                 
