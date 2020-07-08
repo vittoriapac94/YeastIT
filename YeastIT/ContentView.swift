@@ -12,8 +12,10 @@ struct ContentView: View {
     let textDimension : CGFloat = 40
     let imageDimension : CGFloat = 228
     let avatarImageDimension : CGFloat = 499
-    @State var quantity: String = "0"
+    @State var avatarImage : String = "maleAvatar1"
+    @State var isMale : Bool = true
     @State var avatarName: String = ""
+    @State var quantity: String = "0"
     var body: some View {
         
         NavigationView{
@@ -23,6 +25,8 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center){
+                    Spacer()
+                        .frame(width: 0.0, height: 50.0)
                     HStack(alignment: .center) {
                         Text("YEAST")
                             .font(.system(size: textDimension, weight: .bold))
@@ -37,19 +41,31 @@ struct ContentView: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 10)
                     
-                    
+                    Text("Tap to change your avatar")
+                        .font(.system(size: 18, weight: .light))
                     ZStack(alignment: .center){
                         Image("RettangoloAvatar")
                             .resizable()
                             .scaledToFit()
                             .frame(width: imageDimension * 1.2 , height: imageDimension * 1.2 )
+                       
                             
                         
                         
-                        Image("img_avatar")
+                        Image(avatarImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: avatarImageDimension / 3, height: avatarImageDimension / 3)
+                            .frame(width: avatarImageDimension / 2, height: avatarImageDimension / 2)
+                            .onTapGesture {
+                                if (self.isMale){
+                                    self.isMale = false
+                                    self.avatarImage = "femaleAvatar1"
+                                }else{
+                                    self.isMale = true
+                                    self.avatarImage = "maleAvatar1"
+                                }
+                               
+                        }
                             
                     }.aspectRatio(contentMode: .fit)
                         .padding()
@@ -92,24 +108,29 @@ struct ContentView: View {
                             }
                         }
                         
-                        NavigationLink(destination: TimerView()){
+                        NavigationLink(destination: TimerView(localName : self.$avatarName, imageName : avatarImage)){
                             ZStack{
                                 Rectangle()
                                     .frame(width: 299, height: 60, alignment: .center)
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(Color(red: 237 / 255, green: 145 / 255, blue: 97 / 255))
                                     .cornerRadius(25)
                                    
                                 Text("INIZIA A LIEVITARE")
-                                    .foregroundColor(Color.orange)
+                                    .foregroundColor(Color.white)
                                 .bold()
                                     
                             }
-                        }
+                        }  .navigationBarTitle("")
+                            .navigationBarHidden(true)
                     }
                     
                 }
             }
+        
         }
+ 
+        
+        
     }
 }
 
