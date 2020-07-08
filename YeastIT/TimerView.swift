@@ -11,14 +11,13 @@ import SwiftUI
 struct TimerView: View {
     let hourInSecond = 172800
     @State var progressValuePercentage: Double = 0.00
-    @State var timeRemaining = 10.00
+    @State var timeRemaining = 172800.00 / 7
     @State var angle = 0
     @Binding var localName : String
     @State var hoursD = 0.00
     @State var hoursI = 0
     @State var min = 0.00
     @State var minI = 0
-    @State var secI = 0
     @State var alert = false
     var imageName : String
     let imageDimension : CGFloat = 228
@@ -56,7 +55,7 @@ struct TimerView: View {
                                 self.min = self.hoursD - Double(self.hoursI)
                                 
                                 self.minI = Int(self.min * 60)
-                                self.secI = Int(self.min * 6000)
+                            
                                 
                             }else{
                                 
@@ -117,7 +116,7 @@ struct TimerView: View {
                                 Spacer()
                                     .frame(width: 80.0)
                                 
-                                ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI, seconds : self.$secI)
+                                ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI)
                                     .frame(width: 150.0, height: 150.0)
                                     
                                     .onReceive(timerCL){ _ in
@@ -203,7 +202,6 @@ struct ProgressBar: View {
     @Binding var progress: Double
     @Binding var hours : Int
     @Binding var minutes : Int
-    @Binding var seconds : Int
     
     var body: some View {
         
@@ -224,11 +222,9 @@ struct ProgressBar: View {
                 Text("Mancano")
                     .bold()
                 HStack{
-                    Text("\(hours)")
+                    Text("\(hours) h")
                     Text(":")
-                    Text("\(minutes)")
-                    Text(":")
-                    Text("\(seconds)")
+                    Text("\(minutes) m")
                 }
                 
                 
