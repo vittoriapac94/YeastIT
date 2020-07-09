@@ -11,7 +11,7 @@ import SwiftUI
 struct TimerView: View {
     let hourInSecond = 172800
     @State var progressValuePercentage: Double = 0.00
-    @State var timeRemaining = 172800.00 / 7
+    @State var timeRemaining = 15.00
     @State var angle = 0
     @Binding var localName : String
     @State var hoursD = 0.00
@@ -59,7 +59,7 @@ struct TimerView: View {
                                 
                             }else{
                                 
-                                //notifica watch
+                                //notifica iphone
                                 
                                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (status, _) in
                                     
@@ -70,7 +70,7 @@ struct TimerView: View {
                                         content.title = "Notification from Yeast It"
                                         content.body = "Finito!!"
                                         
-                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                                         
                                         let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
                                         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
@@ -80,7 +80,7 @@ struct TimerView: View {
                                     
                                     self.alert.toggle()
                                 }
-                                
+                             
                             }
                     }
                     .alert(isPresented: $alert){
@@ -120,7 +120,12 @@ struct TimerView: View {
                                     .frame(width: 150.0, height: 150.0)
                                     
                                     .onReceive(timerCL){ _ in
-                                        self.angle += 10
+                                        if self.timeRemaining > 0{
+                                            self.angle += 10
+                                        }else{
+                                            self.angle = 0
+                                        }
+                                        
                                 }
                             }
                             
