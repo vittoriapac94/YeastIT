@@ -108,7 +108,7 @@ struct ContentView: View {
                             }
                         }
                         
-                        NavigationLink(destination: TimerView(localName : self.$avatarName, imageName : avatarImage)){
+                        NavigationLink(destination: TimerView(localName : self.avatarName, imageName : avatarImage)){
                             ZStack{
                                 Rectangle()
                                     .frame(width: 299, height: 60, alignment: .center)
