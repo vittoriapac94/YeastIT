@@ -10,164 +10,241 @@ import SwiftUI
 
 struct TimerView: View {
     let hourInSecond = 172800
-    
+    var localQuantity : String
+    var localName : String
+    var imageName : String
     @State var progressValuePercentage: Double = 0.00
-    @State var timeRemaining = 172800.00
+    @State var tempo = 172800.00
     @State var hoursD = 0.00
     @State var hoursI = 0
     @State var min = 0.00
     @State var minI = 0
     @State var angle = 0
     @State var alert = false
-    
-    var localName : String
-    var imageName : String
+    @State var isVisible = true
+    @State var nRefresh = 1
     let imageDimension : CGFloat = 228
     let avatarImageDimension : CGFloat = 500
-    @ObservedObject var setting = TimerSettings()
+    
+    @Environment(\.presentationMode) var presentationMode
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
     var body: some View {
-            ZStack{
-                Image("bcq")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+        ZStack{
+            
+            Image("bcq")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            
+            
+            
+            VStack{
+                Button(action : {
+                    self.timer.upstream.connect().cancel()
+                    self.presentationMode.wrappedValue.dismiss()
+                }){
+                    HStack{
+                        
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.white)
+                        Text("Back")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.white)
+                        
+                        
+                        Rectangle()
+                            .opacity(0)
+                        
+                    }.frame(width: 350, height: 25)
+                }
                 
                 
                 
-                VStack{
+                ZStack{
                     
-                    ZStack{
-                        Image("RettangoloAvatar")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: imageDimension  , height: imageDimension)
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: avatarImageDimension / 1.75, height: avatarImageDimension / 1.75)
-                            .onReceive(setting.timer){_ in
-                                if self.timeRemaining > 0{
-                                    self.timeRemaining -= 1
-                                    self.progressValuePercentage = ((self.timeRemaining * 100) / Double(self.hourInSecond)) / 100
+                    Image("RettangoloAvatar")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: imageDimension  , height: imageDimension)
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: avatarImageDimension / 2, height: avatarImageDimension / 2)
+                        .onReceive(timer){_ in
+                            if self.tempo > 0{
+                                self.tempo -= 1
+                                self.progressValuePercentage = ((self.tempo * 100) / Double(self.hourInSecond)) / 100
+                                
+                                self.hoursD = self.tempo / 3600.00
+                                self.hoursI = Int(self.hoursD)
+                                self.min = self.hoursD - Double(self.hoursI)
+                                
+                                self.minI = Int(self.min * 60)
+                                print(self.tempo)
+                                
+                                
+                            }else{
+                                
+                                //notifica watch
+                                self.isVisible = true
+                                
+                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (status, _) in
                                     
-                                    self.hoursD = self.timeRemaining / 3600.00
-                                    self.hoursI = Int(self.hoursD)
-                                    self.min = self.hoursD - Double(self.hoursI)
                                     
-                                    self.minI = Int(self.min * 60)
-                                    print(self.timeRemaining)
-                                    
-                                    
-                                }else{
-                                    
-                                    //notifica watch
-                                    
-                                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (status, _) in
+                                    if status{
                                         
+                                        let content = UNMutableNotificationContent()
+                                        content.title = "Notification from Yeast It"
+                                        content.body = "Finito!!"
                                         
-                                        if status{
-                                            
-                                            let content = UNMutableNotificationContent()
-                                            content.title = "Notification from Yeast It"
-                                            content.body = "Finito!!"
-                                            
-                                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-                                            
-                                            let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
-                                            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-                                            
-                                            return
-                                        }
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
                                         
-                                        self.alert.toggle()
+                                        let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
+                                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                                        
+                                        return
                                     }
                                     
+                                    self.alert.toggle()
                                 }
                                 
-                                
-                                
-                        }
-                        .alert(isPresented: $alert){
-                            return Alert(title: Text("Please Enable Notification Access In Settings Pannel !!!"))
-                        }
-                        
-                    }
-                    
-                    
-                    
-                    
-                    Text("\(localName.uppercased())")
-                        .font(.largeTitle)
-                        .foregroundColor(Color.black)
-                        .frame(width : 500)
-                    
-                    Spacer()
-                        .frame(width:1)
-                    ZStack{
-                        Rectangle().foregroundColor(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 0.0))
-                            .overlay(
-                                
-                                HStack{
-                                
-                                    ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI, seconds : self.$timeRemaining)
-                                        .frame(width: 150, height: 150.0)
-                                        .padding(.trailing)
-                                    Spacer()
-                                        .frame(width: 50.0)
-                                    NavigationLink(destination: CheckView(checkAvatarName: localName, checkImageName: imageName)){
-                                        ZStack{
-                                            Rectangle()
-                                                .frame(width:111, height: 90, alignment: .center)
-                                                .foregroundColor(Color(red: 252 / 255, green: 139 / 255, blue: 86 / 255))
-                                                .cornerRadius(15)
-                                                .overlay(
-                                                    VStack{
-                                                        Image(systemName: "camera")
-                                                            .foregroundColor(Color.white)
-                                                        Text("CHECK")
-                                                            .bold()
-                                                            .foregroundColor(Color.white)
-                                                    }
-
-                                            )
-                                                .padding(.bottom, 30)
-
-                                        }
-
-                                    }
-                                    
-                                }
-                                
-                                
-                        )
-                        
-                    }
-                    Button(action: {}){
-                        ZStack{
+                            }
                             
-                            Rectangle()
-                                .frame(width: 299, height: 60, alignment: .center)
-                                .foregroundColor(Color(red: 252 / 255, green: 139 / 255, blue: 86 / 255))
-                                .cornerRadius(25)
-                               
-                            Text("RESET")
-                                .foregroundColor(Color.white)
-                            .bold()
                             
-                        }.padding(.top, 50)
+                            
                     }
-                    
+                    .alert(isPresented: $alert){
+                        return Alert(title: Text("Please Enable Notification Access In Settings Pannel !!!"))
+                    }
                     
                 }
-                .frame(width: 13.0)
-            }.navigationBarTitle("")
+                
+                
+                
+                
+                Text("\(localName.uppercased())")
+                    .font(.largeTitle)
+                    .foregroundColor(Color.black)
+                    .frame(width : 500)
+                
+                Spacer()
+                    .frame(width:1)
+                ZStack{
+                    Rectangle().foregroundColor(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 0.0))
+                        .overlay(
+                            
+                            HStack{
+                                
+                                ProgressBar(progress: self.$progressValuePercentage, hours: self.$hoursI, minutes : self.$minI, seconds : tempo)
+                                    .frame(width: 150, height: 150.0)
+                                    .padding(.trailing)
+                                Spacer()
+                                    .frame(width: 50.0)
+                                NavigationLink(destination: CheckView(checkAvatarName: localName, checkImageName: imageName, checkQuantity: localQuantity)){
+                                    ZStack{
+                                        Rectangle()
+                                            .frame(width:111, height: 90, alignment: .center)
+                                            .foregroundColor(Color(red: 252 / 255, green: 139 / 255, blue: 86 / 255))
+                                            .cornerRadius(15)
+                                            .overlay(
+                                                VStack{
+                                                    Image(systemName: "camera")
+                                                        .foregroundColor(Color.white)
+                                                    Text("CHECK")
+                                                        .bold()
+                                                        .foregroundColor(Color.white)
+                                                }
+                                                
+                                        )
+                                            .padding(.bottom, 30)
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                    )
+                    
+                }
+  
+            }
+            .frame(width: 13.0)
+            
+            //            v stack 3 livello
+            VStack{
+                
+                Rectangle()
+                    .frame(width: 300, height: 150)
+                    .opacity(0)
+                Rectangle()
+                    .frame(width: 300, height: 150)
+                    .foregroundColor(Color(red: 1.0, green: 0, blue: 1.0, opacity: 0))
+                    .overlay(
+                        
+                        ZStack{
+                            Image("Casella")
+                                .resizable()
+                                .frame(width: 300, height: 150)
+                            VStack{
+                                
+                                Text("Effettua il tuo \(self.nRefresh) rinfresco")
+                                    .font(.system(size: 18, weight: .bold))
+                                    .foregroundColor(Color(red: 247 / 255, green: 124 / 255, blue: 66 / 255))
+                                Text("Aggiungi altri \((Int(localQuantity) ?? 0) / 2) gr di acqua")
+                                    .font(.system(size: 15, weight: .light))
+                                Text("Aggiungi altri \(localQuantity) gr di farina")
+                                    .font(.system(size: 15, weight: .light))
+                                
+                                Button(action : resetParameters){
+                                    ZStack{
+                                        Rectangle()
+                                            .frame(width: 200, height: 30, alignment: .center)
+                                            .foregroundColor(Color(red: 252 / 255, green: 139 / 255, blue: 86 / 255))
+                                            .cornerRadius(25)
+                                        
+                                        Text("Restart timer")
+                                            .foregroundColor(Color.white)
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                }
+                                
+                                
+                            }
+                            
+                        }
+                        
+                        
+                )
+                    .opacity(isVisible ? 1 : 0)
+                
+            }
+            
+            
+        }.navigationBarTitle("")
             .navigationBarHidden(true)
         
-        }
     }
+    func resetParameters(){
+        if (self.nRefresh < 6){
+            self.tempo = 172800.00
+        }
+        else {
+            self.tempo = 172800.00 / 2
+        }
+        self.isVisible = false
+        self.nRefresh += 1
+        
+    }
+}
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(localName: "nome", imageName: "femaleAvatar1")
+        TimerView(localQuantity: "0", localName: "nome", imageName: "femaleAvatar1")
     }
 }
 
@@ -176,9 +253,9 @@ struct ProgressBar: View {
     @Binding var progress: Double
     @Binding var hours : Int
     @Binding var minutes : Int
-    @Binding var seconds : Double
+    var seconds : Double
     @State var angle = 0
-    let timerCL = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    public let timerCL = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     var body: some View {
         VStack{
             ZStack {
@@ -200,8 +277,14 @@ struct ProgressBar: View {
                     .frame(width:53, height: 77)
                     .rotationEffect(.degrees(Double(self.angle)))
                     .animation(.spring())
-                    .onReceive(timerCL){ _ in
-                        self.angle += 10
+                    .onReceive(timerCL){_ in
+                        if (Int(self.seconds) > 0 ){
+                            self.angle += 10
+                        }
+                        else{
+                            self.angle = 0
+                        }
+                        
                         
                 }
                 

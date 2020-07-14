@@ -15,7 +15,6 @@
 		1173AC4424B45A3F0064790F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */; };
 		D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9F41624B4BA1000D5D574 /* TimerView.swift */; };
 		D9E055C024B84FD2005E6C4E /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E055BF24B84FD2005E6C4E /* CheckView.swift */; };
-		D9E055C224B85038005E6C4E /* TimerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E055C124B85038005E6C4E /* TimerSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		1173AC4524B45A3F0064790F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9C9F41624B4BA1000D5D574 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		D9E055BF24B84FD2005E6C4E /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
-		D9E055C124B85038005E6C4E /* TimerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +65,6 @@
 				1173AC3B24B45A3E0064790F /* ContentView.swift */,
 				D9C9F41624B4BA1000D5D574 /* TimerView.swift */,
 				D9E055BF24B84FD2005E6C4E /* CheckView.swift */,
-				D9E055C124B85038005E6C4E /* TimerSettings.swift */,
 				1173AC3D24B45A3F0064790F /* Assets.xcassets */,
 				1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */,
 				1173AC4524B45A3F0064790F /* Info.plist */,
@@ -155,7 +152,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9E055C224B85038005E6C4E /* TimerSettings.swift in Sources */,
 				1173AC3824B45A3D0064790F /* AppDelegate.swift in Sources */,
 				1173AC3A24B45A3D0064790F /* SceneDelegate.swift in Sources */,
 				D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */,

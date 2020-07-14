@@ -11,27 +11,40 @@ import SwiftUI
 struct CheckView: View {
     var checkAvatarName : String
     var checkImageName : String
-    
+    var checkQuantity : String
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack{
             Image("bcq")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             
-            NavigationLink(destination: TimerView(localName: checkAvatarName, imageName: checkImageName)){
-                ZStack{
-                    Rectangle()
-                        .frame(width: 50, height: 50)
-                }
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
                 
+            }){
+                HStack{
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.black)
+                    Text("Back")
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.black)
+                    
+                    Rectangle()
+                        .opacity(0)
+                    
+                }.frame(width: 350, height: 25)
             }
         }.navigationBarTitle("")
-        .navigationBarHidden(true)
-
+            .navigationBarHidden(true)
+        
         
     }
 }
 
 struct CheckView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckView(checkAvatarName: "gino", checkImageName: "femaleAvatar1")
+        CheckView(checkAvatarName: "gino", checkImageName: "maleAvatar1", checkQuantity: "0")
     }
 }

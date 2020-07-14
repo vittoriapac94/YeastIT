@@ -101,6 +101,7 @@ struct ContentView: View {
                             VStack(alignment: .center){
                                 Text("Ti servono")
                                     .font(.system(size: 23, weight: .bold))
+                                    .foregroundColor(Color(red: 247 / 255, green: 124 / 255, blue: 66 / 255))
                                 Text("\(quantity) gr di farina")
                                     .font(.system(size: 15, weight: .light))
                                 Text("\((Int(quantity) ?? 0) / 2) gr di acqua")
@@ -108,7 +109,7 @@ struct ContentView: View {
                             }
                         }
                         
-                        NavigationLink(destination: TimerView(localName : self.avatarName, imageName : avatarImage)){
+                        NavigationLink(destination: TimerView(localQuantity: quantity, localName: avatarName, imageName: avatarImage)){
                             ZStack{
                                 Rectangle()
                                     .frame(width: 299, height: 60, alignment: .center)
