@@ -12,7 +12,7 @@ struct TimerView: View {
     let hourInSecond = 172800
     var localQuantity : String
     var localName : String
-    var imageName : String
+    @State var imageName : String
     @State var progressValuePercentage: Double = 0.00
     @State var tempo = 172800.00
     @State var hoursD = 0.00
@@ -21,8 +21,9 @@ struct TimerView: View {
     @State var minI = 0
     @State var angle = 0
     @State var alert = false
-    @State var isVisible = true
+    @State var isVisible = false
     @State var nRefresh = 1
+    @State var imageCounter = 0
     let imageDimension : CGFloat = 228
     let avatarImageDimension : CGFloat = 500
     
@@ -74,7 +75,17 @@ struct TimerView: View {
                         .frame(width: avatarImageDimension / 2, height: avatarImageDimension / 2)
                         .onReceive(timer){_ in
                             if self.tempo > 0{
-                                self.tempo -= 1
+                                if (Int(self.tempo) == self.hourInSecond / 2){
+                                    self.imageCounter += 1
+                                }
+                                if (Int(self.tempo) == self.hourInSecond / 3){
+                                    self.imageCounter += 1
+                                }
+                                
+                                var temp = self.imageName.dropLast()
+                                temp = temp + String(self.imageCounter)
+                                self.imageName = String(temp)
+                                self.tempo -= 3600
                                 self.progressValuePercentage = ((self.tempo * 100) / Double(self.hourInSecond)) / 100
                                 
                                 self.hoursD = self.tempo / 3600.00
@@ -88,6 +99,14 @@ struct TimerView: View {
                             }else{
                                 
                                 //notifica watch
+                                if (self.imageCounter == 2){
+                                   self.imageCounter += 1
+                                }
+                                
+                                var temp = self.imageName.dropLast()
+                                temp = temp + String(self.imageCounter)
+                                self.imageName = String(temp)
+                                
                                 self.isVisible = true
                                 
                                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (status, _) in
@@ -142,7 +161,7 @@ struct TimerView: View {
                                     .padding(.trailing)
                                 Spacer()
                                     .frame(width: 50.0)
-                                NavigationLink(destination: CheckView(checkAvatarName: localName, checkImageName: imageName, checkQuantity: localQuantity)){
+                                NavigationLink(destination: CheckView()){
                                     ZStack{
                                         Rectangle()
                                             .frame(width:111, height: 90, alignment: .center)
@@ -230,13 +249,9 @@ struct TimerView: View {
         
     }
     func resetParameters(){
-        if (self.nRefresh < 6){
-            self.tempo = 172800.00
-        }
-        else {
-            self.tempo = 172800.00 / 2
-        }
         self.isVisible = false
+        self.tempo = 172800.00
+        self.imageCounter = 0
         self.nRefresh += 1
         
     }
@@ -244,7 +259,7 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(localQuantity: "0", localName: "nome", imageName: "femaleAvatar1")
+        TimerView(localQuantity: "0", localName: "nome", imageName: "maleAvatar0")
     }
 }
 

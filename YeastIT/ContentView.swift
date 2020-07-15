@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    var provider = WatchConnectivityProvider()
     let textDimension : CGFloat = 40
     let imageDimension : CGFloat = 228
     let avatarImageDimension : CGFloat = 499
-    @State var avatarImage : String = "maleAvatar1"
+    @State var avatarImage : String = "maleAvatar0"
     @State var isMale : Bool = true
     @State var avatarName: String = ""
     @State var quantity: String = "0"
@@ -48,8 +49,8 @@ struct ContentView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: imageDimension * 1.2 , height: imageDimension * 1.2 )
-                       
-                            
+                        
+                        
                         
                         
                         Image(avatarImage)
@@ -59,14 +60,14 @@ struct ContentView: View {
                             .onTapGesture {
                                 if (self.isMale){
                                     self.isMale = false
-                                    self.avatarImage = "femaleAvatar1"
+                                    self.avatarImage = "femaleAvatar0"
                                 }else{
                                     self.isMale = true
-                                    self.avatarImage = "maleAvatar1"
+                                    self.avatarImage = "maleAvatar0"
                                 }
-                               
+                                
                         }
-                            
+                        
                     }.aspectRatio(contentMode: .fit)
                         .padding()
                     
@@ -74,9 +75,10 @@ struct ContentView: View {
                         VStack{
                             Text("Scegli un nome per il tuo avatar")
                             TextField("Nome Avatar...",text: $avatarName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .font(.system(size: textDimension / 2, weight: .light))
-                            .frame(width: avatarImageDimension / 2)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .font(.system(size: textDimension / 2, weight: .light))
+                                .frame(width: avatarImageDimension / 2)
+                            
                         }.padding()
                         
                         
@@ -88,9 +90,9 @@ struct ContentView: View {
                                 .font(.system(size: textDimension / 2, weight: .light))
                                 .cornerRadius(10)
                                 .keyboardType(.numberPad)
-                                                  
+                            
                         }
-                  
+                        
                         
                         
                         ZStack{
@@ -115,21 +117,25 @@ struct ContentView: View {
                                     .frame(width: 299, height: 60, alignment: .center)
                                     .foregroundColor(Color(red: 237 / 255, green: 145 / 255, blue: 97 / 255))
                                     .cornerRadius(25)
-                                   
+                                
                                 Text("INIZIA A LIEVITARE")
                                     .foregroundColor(Color.white)
-                                .bold()
-                                    
+                                    .bold()
+                                
                             }
-                        }  .navigationBarTitle("")
+                        }.disabled(self.avatarName == "" && Int(self.quantity) == 0 && self.quantity == "")
+                            .navigationBarTitle("")
                             .navigationBarHidden(true)
                     }
                     
                 }
             }
+            
+        }.gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+        .onAppear(perform: {
+            self.provider.connect()
+        })
         
-        }
- 
         
         
     }

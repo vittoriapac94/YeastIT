@@ -13,6 +13,10 @@
 		1173AC3E24B45A3F0064790F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC3D24B45A3F0064790F /* Assets.xcassets */; };
 		1173AC4124B45A3F0064790F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC4024B45A3F0064790F /* Preview Assets.xcassets */; };
 		1173AC4424B45A3F0064790F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */; };
+		D91A03B324BEF00900D52141 /* CaptureImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A03B224BEF00900D52141 /* CaptureImageView.swift */; };
+		D91A03B524BEF01D00D52141 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A03B424BEF01D00D52141 /* Coordinator.swift */; };
+		D91A03B724BEF03B00D52141 /* LievitoMadreClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D91A03B624BEF03B00D52141 /* LievitoMadreClassifier.mlmodel */; };
+		D91A03B924BEF05E00D52141 /* WatchConnectivityProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A03B824BEF05E00D52141 /* WatchConnectivityProvider.swift */; };
 		D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9F41624B4BA1000D5D574 /* TimerView.swift */; };
 		D9E055C024B84FD2005E6C4E /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E055BF24B84FD2005E6C4E /* CheckView.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +30,10 @@
 		1173AC4024B45A3F0064790F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1173AC4324B45A3F0064790F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1173AC4524B45A3F0064790F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D91A03B224BEF00900D52141 /* CaptureImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureImageView.swift; sourceTree = "<group>"; };
+		D91A03B424BEF01D00D52141 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D91A03B624BEF03B00D52141 /* LievitoMadreClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LievitoMadreClassifier.mlmodel; sourceTree = "<group>"; };
+		D91A03B824BEF05E00D52141 /* WatchConnectivityProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityProvider.swift; sourceTree = "<group>"; };
 		D9C9F41624B4BA1000D5D574 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		D9E055BF24B84FD2005E6C4E /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +73,10 @@
 				1173AC3B24B45A3E0064790F /* ContentView.swift */,
 				D9C9F41624B4BA1000D5D574 /* TimerView.swift */,
 				D9E055BF24B84FD2005E6C4E /* CheckView.swift */,
+				D91A03B224BEF00900D52141 /* CaptureImageView.swift */,
+				D91A03B624BEF03B00D52141 /* LievitoMadreClassifier.mlmodel */,
+				D91A03B424BEF01D00D52141 /* Coordinator.swift */,
+				D91A03B824BEF05E00D52141 /* WatchConnectivityProvider.swift */,
 				1173AC3D24B45A3F0064790F /* Assets.xcassets */,
 				1173AC4224B45A3F0064790F /* LaunchScreen.storyboard */,
 				1173AC4524B45A3F0064790F /* Info.plist */,
@@ -152,11 +164,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91A03B724BEF03B00D52141 /* LievitoMadreClassifier.mlmodel in Sources */,
 				1173AC3824B45A3D0064790F /* AppDelegate.swift in Sources */,
 				1173AC3A24B45A3D0064790F /* SceneDelegate.swift in Sources */,
 				D9C9F41724B4BA1000D5D574 /* TimerView.swift in Sources */,
 				1173AC3C24B45A3E0064790F /* ContentView.swift in Sources */,
+				D91A03B924BEF05E00D52141 /* WatchConnectivityProvider.swift in Sources */,
 				D9E055C024B84FD2005E6C4E /* CheckView.swift in Sources */,
+				D91A03B324BEF00900D52141 /* CaptureImageView.swift in Sources */,
+				D91A03B524BEF01D00D52141 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
